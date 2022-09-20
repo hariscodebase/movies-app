@@ -3,9 +3,11 @@ import Movie from "./Movie";
 import axios from "axios";
 import Pagination from "./Pagination";
 
+
 function Main() {
 
-  var genreOptions = ["Comedy",
+  var genreOptions = ["--Any--",
+  "Comedy",
   "Sci-Fi",
   "Horror",
   "Romance",
@@ -36,19 +38,20 @@ function Main() {
         minimum_rating: "",
     })
 
+    
+
     function fetchData() {
       axios({
         method: 'GET',
         url: `${ytsApi.baseUrl}/api/v2/list_movies.json`,
         params: {
-            genre: data.genre,
+            genre: data.genre === "--Any--" ? "" : data.genre,
             minimum_rating: parseInt(data.minimum_rating),
             page: currentPage,
             limit: moviesPerPage
         }
     }).then(function (response) {
         moviesList = response.data.data.movies;
-        console.log(moviesList);
         setMovieCount(response.data.data.movie_count);
         setMovies(moviesList);
     }).catch(function (error) {
@@ -57,12 +60,13 @@ function Main() {
     }
 
     function handleSubmit(e) {
+      setCurrentPage(1);
       fetchData();
         e.preventDefault();
     }
 
     useEffect(() => {
-      fetchData()
+      fetchData();
     }, [currentPage]);
 
     function handleChange(e) {
@@ -85,6 +89,12 @@ function Main() {
         <header>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="w3-row-padding" id="movie-search-form">
+           <div className="logo-div">
+              <a className="mg-logo-link" href=".">
+                <object className="mg-logo-svg" aria-label="logo" data="logo.svg" width="200"></object>
+              </a>           
+            </div>
+            <div className="search-div"> 
             <select onChange={(e) => handleChange(e)} value={data.genre} id="genre" className="w3-select w3-round filter-dropdown"
               name="genre">
               <option value="" disabled >Choose a genre</option>
@@ -100,15 +110,24 @@ function Main() {
               })}
             </select>
             <input className="w3-btn w3-round" id="search-btn" type="submit" value="Search" />
+            </div>
+            
           </div>
         </form>
       </header>
+
+      {movies ? 
       <div className="movie-container">
       {movies.map((movie) => (
       <Movie key={movie.id} {...movie} />
       ))}
       </div>
-      <Pagination moviesPerPage={moviesPerPage} totalMovies={movieCount} currentPage={currentPage} paginate={paginate} />
+     : <p className="error-msg">Oops! no movies found</p>  
+    }
+
+<Pagination moviesPerPage={moviesPerPage} totalMovies={movieCount} currentPage={currentPage} paginate={paginate} />
+
+      
       </div>
         
     );

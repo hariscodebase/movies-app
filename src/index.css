@@ -24,12 +24,30 @@ header {
 }
 
 #movie-search-form {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
   padding-top: 2em;
   padding-bottom: 2em;
 }
 
-#movie-search-form > * {
+.search-div > * {
   margin: 2px 16px;
+}
+
+.logo-div {
+  flex: 1 0 0;
+}
+
+
+.mg-logo-svg {
+  pointer-events: none;
+}
+
+.search-div {
+  flex: 4 0 0;
+  text-align: right;
 }
 
 #search-btn {
@@ -95,12 +113,14 @@ header {
 
 .movie .genreList {
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .movie .genreListItem {
   display: inline;
   list-style-type: none;
-  margin: 0px 4px 0px 0px;
+  margin: 0px 4px 4px 0px;
   background-color:#a3a1c7;
   padding: 6px;
   border-radius: 4px;
@@ -116,3 +136,26 @@ header {
   color: #fff;
 }
 
+.error-msg {
+  text-align: center;
+}
+
+
+@media screen and (max-width: 640px) {
+  .search-div {
+    flex: 4 0 0;
+    text-align: center;
+  }
+
+  .logo-div {
+    flex: 1 0 0;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .search-div > * {
+    width: 200px;
+    margin: 12px 16px;
+  }
+
+}
