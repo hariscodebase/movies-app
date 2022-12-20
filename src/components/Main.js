@@ -34,8 +34,8 @@ function Main() {
     const moviesPerPage = 20
     const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState({
-        genre: "",
-        minimum_rating: "",
+        genre: "--Any--",
+        minimum_rating: "7",
     })
 
     
