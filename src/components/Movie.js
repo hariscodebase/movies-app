@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react" ;
 
 const Movie = ({ title_long, title_english, large_cover_image, summary, rating, genres, yt_trailer_code }) =>  
 <div className="movie">

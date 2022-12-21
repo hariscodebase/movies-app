@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 
 
 function Main() {
-
+  
   var genreOptions = ["--Any--",
   "Comedy",
   "Sci-Fi",
